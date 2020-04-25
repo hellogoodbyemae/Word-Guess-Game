@@ -1,49 +1,85 @@
-var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+var lettersGuessed = [];
+
+var guessesLeft = 10;
 
 var wins = 0;
-var losses = 0;
-var numGuesses = 10;
-var guessChoices = [];
 
-document.onkeyup = function(event) {
+var computerGuess =
+    String.fromCharCode(
+        Math.round(Math.random() * 26) + 97
+    );
 
-    var userGuess = event.key;
+console.log(computerGuess);
 
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+document.onkeydown = function(event) {
+    var keyPress = (String.fromCharCode(event.keyCode)).toLowerCase();
 
-    var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
-    
+    addLetter(keyPress);
 
-   if (options.indexOf(userGuess) > -1) {
+}
 
-       if (userGuess === computerGuess) {
-           wins++;
-           numGuesses = 9;
-           guessChoices = [];
-       }
+function addLetter (usersKeypress) {
 
-       if (userGuess != computerGuess) {
-           numGuesses --;
-           guessChoices.push(userGuess);
-       }
+    var repeatGuess = lettersGuessed.some(function(item){
+        return item === usersKeypress;
+    })
 
-       if (numGuesses === 0) {
+    if (repeatGuess) {
+        alert(usersKeypress + " already guessed. Try again!");
 
-       numGuesses = 9;
-       losses ++;
-       guessChoices = [];
+    } else {
+        lettersGuessed.push(usersKeypress);
+        console.log(lettersGuessed);
 
-   }
+        showLettersGuessed();
+        guessMatch(usersKeypress);
+    }
 
-   var html = 
-   "<h1> The Psychic Game </h1>" +
-   "<p>Guess what letter I'm thinking of!</p>" +
-   "<p>Wins: " + wins + "</p>" +
-   "<p>Losses: " + losses + "</p>" +
-   "<p>Guesses Left: " + numGuesses + "</p>" +
-   "<p>Your Guesses so far: " + guessChoices.join(", ") + "</p>";
+}
 
-   document.querySelector("#game").innerHTML = html;
-   
-   }
-};
+function showLettersGuessed() {
+    var tempStr = lettersGuessed.join(", ");
+    document.getElementById("playersGuess").innerHTML = tempStr;
+}
+
+function guessMatch (character) {
+
+    console.log(character);
+    console.log(computerGuess);
+
+    if (character === computerGuess) {
+
+        alert("You win!");
+        wins = wins + 1;
+        showWins();
+
+    } else if (guessesLeft === 0) {
+        alert("Aw man! Lets start over.");
+        resetVariables ();
+
+    } else {
+        guessesLeft = guessesLeft - 1;
+        showGuessesRemaining();
+    }
+}
+
+function showWins() {
+    document.getElementById("numWins").innerHTML = wins;
+}
+
+function showGuessesRemaining() {
+    document.getElementById("numGuesses").innerHTML = guessesLeft;
+}
+
+
+function resetVariables () {
+    lettersGuessed = [];
+    guessesLeft = 10;
+}
+
+function startGame() {
+    showGuessesRemaining();
+    showWins();
+}
+
+startGame();

@@ -1,5 +1,9 @@
 body {
-    background: url("../images/0.jpg");
+    background: url("../images/0.jpg") no-repeat center center fill;
+    /* -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; */
+    background-size: cover;
     min-width: 960px;
     margin: auto;
 }
