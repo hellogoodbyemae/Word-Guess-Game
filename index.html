@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Psychic Letter Game</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 </head>
 
 <body>
 
-    <h1>The Psychic Game</h1>
+    <div id="header">
+        <h1> THE PSYCHIC GAME </h1>
+    </div>
 
-    <h2>Guess the letter I'm thinking.</h2>
+    <div id="game">
+		<h2>Guess what letter I'm thinking of!</h2>
+		<p>Wins:</p>
+		<p>Losses:</p>
+		<p>Guesses Left:</p>
+		<p>Your Guesses so far:</p>
+	</div>
 
-    <p>Wins: <span id = "numWins"></span></p>
-
-    <p>Loses:</p>
-
-    <p>Guesses left: <span id = "numGuesses"></span></p>
-
-    <p>Your guesses so far: <span id = "playersGuess"></span></p>
-
-
-<script src="assets/javascript/game.js"></script>
+    <script src="assets/javascript/game.js"></script>
 
 </body>
 </html>
